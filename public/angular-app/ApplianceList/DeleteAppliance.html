@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<title>Home Energy Management System</title>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+<!--<nav class="w3-bar w3-black">
+  <a href="#/" class="w3-button w3-bar-item"><i class="fa fa-home"></i>Home</a>
+  <a href="owner manage.html" class="w3-button w3-bar-item"><i class="fa fa-home"></i>Manage Appliance</a>
+      
+</nav>-->  <br><br><br><br>
+
+
+<div class="container" ng-controller="ApplianceListController">
+
+  <center>
+
+    <h1>Appliance List</h1>
+
+  </center>
+  <br><br>
+  <table class="table table-hover">
+
+    <thead>
+
+       <tr>
+           <th>Sr#</th>
+           <th>Appliance Name</th>
+           <!--<th>Consumption</th>-->
+
+       </tr>
+
+    </thead>
+
+    <tbody>
+
+      <tr ng-repeat="app in x.Appliance">
+        <td>
+
+         {{$index+1}}
+
+       </td>
+
+        <td>
+
+         {{app.ApplianceName}}
+
+       </td>
+
+        <td></td>
+
+        <td>
+
+          <button class="btn btn-danger" ng-click="x.remove(app._id)">Delete</button>
+
+        </td>
+
+     </tr>
+
+    </tbody>
+
+  </table>
+
+</div>
+
+</body>
+
+</html>

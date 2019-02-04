@@ -1,0 +1,518 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	    <meta charset="utf-8">
+	     <meta http-equiv="refresh" content="3600" >
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<title>Room#2 Consumption</title>
+		<link rel="stylesheet" href="assets/bootstrap/bootstrap4-alpha3.min.css">
+		
+		
+	<style>
+
+	        .navbar
+
+	        {
+
+				padding:0px !important;
+			}
+
+		    body 
+
+		    {
+				background-color: #fafafa;
+				font-size: 16px;
+				line-height: 1.5;
+			}
+
+			h1,h2,h3,h4,h5,h6 
+
+			{
+				font-weight: 400;	
+			}
+			
+            #header 
+
+            {
+				border-bottom: 5px solid #37474F;
+				color: #37474F;
+				margin-bottom: 1.5rem;
+				padding: 1rem 0;
+			}
+
+            .card 
+
+            {
+				border: 0rem;
+				border-radius: 0rem;
+			}
+
+			.card-header 
+
+			{
+				background-color: #37474F;
+				border-radius: 0 !important;
+				color:	white;
+				margin-bottom: 0;
+				padding:	1rem;
+			}
+			
+			.card-block 
+
+			{
+				border: 1px solid #cccccc;	
+			}
+			
+			.shadow 
+
+			{
+				box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14),
+							0 1px 18px 0 rgba(0, 0, 0, 0.12),
+							0 3px 5px -1px rgba(0, 0, 0, 0.2);
+			}
+
+			.xvaluue
+
+			{
+
+				width: 50px;
+			}
+
+			.yvaluue
+
+			{
+
+				width: 50px;
+			}
+			
+			 #chartContainer2
+
+			{
+				height: 300px;
+				width: 100%;
+				
+			}
+
+			#chartContainer3
+			{
+
+                height: 300px;
+				width: 100%;
+			}
+
+			 #chartContainer1
+			 {
+
+                height: 330px;
+				width: 100%;
+			 }
+
+
+	</style>	
+
+<script>
+
+$( document ).ready(function(){$.ajax({
+		            url: 'http://localhost:3000/sensor2.1',
+		            type: 'GET',
+		            success : function(result) {
+		var arr1,arr2;
+		var Current=[];
+		var Power=[];
+
+			arr1=result["dataset"][0]["data"];
+			arr2=result["dataset"][1]["data"];
+			
+		
+		var total_current=0;                     
+		for(i=0;i<arr1.length;i++)
+		
+		{
+
+			total_current+=Number(arr1[i].value);
+		
+		}
+		
+
+		Current.push({ 
+	        "label" : "Current(Amps)",
+	        "y"  : Number(total_current)
+	    });
+
+		var total_power=0;
+		var total_power1=0;
+		for(i=0;i<arr2.length;i++)
+		
+		{
+
+			total_power+=Number(arr2[i].value);
+			total_power1=total_power/1000;
+		
+		}
+		
+
+		Current.push({ 
+		        "label" : "Power(Kwh)",
+		        "y"  : Number(total_power1)
+	    });
+		
+		for(i=0;i<arr2.length;i++)
+		 {
+			
+				Power.push({ 
+		        "y"  : Number(arr2[i].value)
+	        });
+
+		 }
+
+
+		var chart = new CanvasJS.Chart("chartContainer1", {
+	        animationEnabled: true,
+	        animationDuration: 2000,
+			backgroundColor: "transparent",
+			theme: "theme2",
+		    exportEnabled: true,
+		    title:
+		    {
+
+               text:"",
+                fontSize: 15
+		    },
+
+		    axisX: 
+
+		    {
+
+		      interval: 1
+	        
+	        },
+	      
+		   axisY: 
+
+		    {
+				title: "",
+				margin:20,
+				scaleBreaks: 
+				{
+
+				type: "wavy",
+				customBreaks: 
+				[{
+					startValue: 3,
+					endValue: 9
+					}
+			    ]}
+		    },
+	      
+	      legend: 
+
+	      {
+	       
+	        verticalAlign: "bottom"
+	      
+	      },
+			
+		  data: 
+
+		  [              
+			
+			{
+				type: "bar",
+				showInLegend: false, 
+	            legendText: "Current",
+				dataPoints: Current
+			}
+		  
+		  ]
+		
+		});
+
+		chart.render();
+	 //-------------------------------------------------------------------column----------------
+	 var arr1,arr2;
+		var Current=[];
+		var Power=[];
+
+			arr1=result["dataset"][0]["data"];
+			arr2=result["dataset"][1]["data"];
+			
+		
+		var total_current=0;                    
+		for(i=0;i<arr1.length;i++)
+		
+		{
+
+			total_current+=Number(arr1[i].value);
+		
+		}
+		
+
+		Current.push({ 
+	        "label" : "Current",
+	        "y"  : Number(total_current)
+	    });
+
+		var total_power=0;
+		var total_power1=0;
+		for(i=0;i<arr2.length;i++)
+		
+		{
+
+			total_power+=Number(arr2[i].value);
+			total_power1=total_power/1000;
+		
+		}
+		
+
+		Power.push({ 
+		        "label" : "Power",
+		        "y"  : Number(total_power1)
+	    });
+		
+	 var chart = new CanvasJS.Chart("chartContainer2", 
+
+	 {
+		 animationEnabled: true,
+		 backgroundColor: "transparent",
+	     theme: "theme2",
+	     exportEnabled: true,
+
+	      title:
+		    {
+
+               text:"",
+                fontSize: 15
+		    },
+		    
+
+		axisY: 
+
+		{
+			title: "",
+			interval: 10
+		},
+
+        dataPointWidth:80,
+        
+		data: 
+
+		[
+		  {
+				type: "column",	
+				yValueFormatString: "",
+				indexLabel: "{y} KWH",
+				indexLabelPlacement: "outside",  
+                indexLabelOrientation: "horizontal",
+				dataPoints: Power
+		  },
+
+		  {
+				type: "column",	
+				yValueFormatString: "",
+				indexLabel: "{y} Amps",
+				indexLabelPlacement: "outside",  
+                indexLabelOrientation: "horizontal",
+				dataPoints: Current
+		  }
+
+		]
+	});
+
+	function updateChart() {
+		var EnergyColor, deltaY, yVal;
+		var EnergyColor1, deltaY1, yVal1;
+		var dps = chart.options.data[0].dataPoints;
+		var dps1 = chart.options.data[1].dataPoints;
+		var xValue = Number(document.getElementById("xValue").value);
+        var yValue = Number(document.getElementById("yValue").value);
+         var ppdiff=xValue-0.3;
+        var aadiff=yValue-0.3;
+		for (var i = 0; i < dps.length; i++) 
+
+		{
+			deltaY = Math.round(0);
+			yVal = deltaY + dps[i].y > 0 ? dps[i].y + deltaY : 0;
+			EnergyColor = yVal >xValue ? "#FF2500" : yVal >=ppdiff ? "#FF6000" : yVal <xValue? " #1abc9c": null;
+			dps[i] = {label: "Power" , y: yVal, color: EnergyColor};
+		}
+        
+		for (var i = 0; i < dps1.length; i++) 
+
+		{
+			deltaY1 = Math.round(0);
+			yVal1 = deltaY1 + dps1[i].y > 0 ? dps1[i].y + deltaY1 : 0;
+			EnergyColor1 = yVal1 >yValue ? "#FF2500" : yVal1 >=aadiff? "#FF6000" : yVal1 <yValue ?  "#5c6bc0  " : null;
+			dps1[i] = {label: "Power              Current" , y: yVal1, color: EnergyColor1};
+		}
+
+		chart.options.data[0].dataPoints = dps; 
+		chart.options.data[1].dataPoints = dps1;
+		chart.render();
+	};
+    
+	updateChart();
+
+	setInterval(function() {updateChart()}, 500);		
+  }
+
+   });
+})
+</script>
+
+<script type="text/javascript">
+	$( document ).ready(function(){$.ajax({
+		            url: 'http://localhost:3000/sensor2',
+		            type: 'GET',
+		            success : function(data) {
+		                    Highcharts.chart('chartContainer3', {
+		
+		    chart: 
+
+		    {
+		        type: 'line'
+		    },
+
+		    title: 
+
+		    {
+		        text: ''
+		    },
+
+		    xAxis: 
+
+		    {
+		        categories: data[0].dates
+		    },
+		
+		    yAxis: 
+
+		    {
+		        title: 
+
+		        {
+		            text: 'Values (Watt&Amps)'
+		        }
+		    },
+
+		    legend: 
+
+		    {
+		        layout: 'vertical',
+		        align: 'right',
+		        verticalAlign: 'middle'
+		    },
+		
+		   
+		 tooltip:
+
+		  {
+			shared:true
+		  },
+		
+		plotOptions: 
+
+		   {
+		        line: 
+		        {
+		            pointPadding:0.2,
+		            borderWidth:0
+		        }
+		    },
+		
+		    series: 
+		    [{
+		        name: 'Room :'+data[0]._id+" Power",
+		        data: data[0].energyarr,
+		        tooltip: 
+		        {
+                     valueSuffix: ' Watt'
+                }
+		    },
+
+		    {
+		        name: 'Room :'+data[0]._id+" Current",
+		        data: data[0].currentarr,
+		        tooltip: 
+		        {
+                     valueSuffix: ' Amps'
+                }
+		    }],
+		});
+	  }
+		});
+})
+</script>
+
+
+
+</head>
+
+<body>
+
+	<br><br><br>
+<div class="container">
+	<h3 id="header">
+		<strong>Energy Consumption of Room#2</strong>
+		<!--<small class="text-muted">30 March 2018 -  3 April 2018</small>-->
+	</h3>
+	<div class="row m-b-1">
+			<div class="col-xs-12">
+				<div class="card shadow">
+					<h4 class="card-header">Energy Consumption</h4>
+					<div class="card-block">
+					     <div id="chartContainer3"></div>
+					</div>
+				</div>
+			</div>
+	 </div>
+	 <div class="row m-b-1">
+			<div class="col-lg-6">
+				<div class="card shadow">
+					<h4 class="card-header">Energy Consumption with Scale Break Point</h4>
+					   <div class="card-block">
+							<div id="chartContainer1"></div>
+					   </div>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				  <div class="card shadow">
+					  <h4 class="card-header">Total Energy Consumption of Room#2</h4>
+				    <div class="card-block">
+						<div id="chartContainer2"></div>				
+					    <center>
+		 Power Limit Value: <input id="xValue" type="number" step="any" class="xvaluue" onkeyup='saveValue(this);'> 
+	     Current Limit Value: <input id="yValue" type="number" step="any" class="yvaluue" onkeyup='saveValue(this);'>
+					    </center>
+				    </div>
+				  </div>
+			</div>
+	  </div>
+</div>
+
+<script type="text/javascript">
+
+        document.getElementById("xValue").value = getSavedValue("xValue");    
+        document.getElementById("yValue").value = getSavedValue("yValue");  
+
+        function saveValue(e){
+            var id = e.id;  
+            var val = e.value; 
+            localStorage.setItem(id, val);
+        }
+
+        function getSavedValue  (v){
+            if (localStorage.getItem(v) === null) 
+
+            {
+                return "";
+            }
+
+            return localStorage.getItem(v);
+        }
+
+</script>
+
+</body>
+
+</html>

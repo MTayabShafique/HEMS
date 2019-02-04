@@ -1,1 +1,1 @@
-# HEMS
+This repo conatins Home Energy Management System

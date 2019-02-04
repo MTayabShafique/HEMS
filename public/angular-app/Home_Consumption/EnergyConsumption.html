@@ -1,0 +1,613 @@
+<!DOCTYPE HTML>
+<html lang="en" ng-app="HEMS">
+<head>
+	    <meta charset="utf-8">
+	     <meta http-equiv="refresh" content="3600" >
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<title>Home Consumption</title>
+		<link rel="stylesheet" href="assets/bootstrap/bootstrap4-alpha3.min.css">
+    
+		
+	<style>
+
+	        .navbar
+
+	        {
+				padding:0px !important;
+			}
+
+		    body 
+
+		    {
+				background-color: #fafafa;
+				font-size: 16px;
+				line-height: 1.5;
+			}
+
+			h1,h2,h3,h4,h5,h6 
+
+			{
+				font-weight: 400;	
+			}
+			
+            #header 
+
+            {
+				border-bottom: 5px solid #37474F;
+				color: #37474F;
+				margin-bottom: 1.5rem;
+				padding: 1rem 0;
+			}
+
+            .card 
+
+            {
+				border: 0rem;
+				border-radius: 0rem;
+			}
+			
+			.card-header 
+
+			{
+				background-color: #37474F;
+				border-radius: 0 !important;
+				color:	white;
+				margin-bottom: 0;
+				padding:	1rem;
+			}
+			
+			.card-block 
+
+			{
+				border: 1px solid #cccccc;	
+			}
+			
+			.shadow 
+
+			{
+				box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14),
+							0 1px 18px 0 rgba(0, 0, 0, 0.12),
+							0 3px 5px -1px rgba(0, 0, 0, 0.2);
+			}
+
+			.xvalue
+
+			{
+
+				width: 50px;
+			}
+
+			.yvalue
+
+			{
+
+				width: 50px;
+			}
+
+			ul#menu li 
+
+			{
+                    
+                display:inline;
+
+            }
+
+            li#lesfif::before 
+
+            {
+			    content:"\0BB";
+			    padding-right: 8px;
+			    color: #1abc9c; 
+            }
+
+            li#ehund::before 
+
+            {
+			    content:"\0BB"; 
+			    padding-right: 8px;
+			    color:  #5499c7 ; 
+            }
+
+            li#e2hund::before 
+
+            {
+			    content: "\0BB"; 
+			    padding-right: 8px;
+			    color:  #af7ac5  ; 
+            }
+
+            li#e3hund::before 
+
+            {
+
+			    content: "\0BB"; 
+			    padding-right: 8px;
+			    color: #f4d03f ; 
+            }
+
+            li#e7hund::before 
+
+            {
+			    content: "\0BB"; 
+			    padding-right: 8px;
+			    color: #eb984e; 
+            }
+
+            li#g7hund::before 
+
+            {
+			    content: "\0BB"; 
+			    padding-right: 8px;
+			    color: #cd6155; 
+            }
+			
+			 #chartContainer2
+
+			{
+				height: 340px;
+				width: 100%;
+				
+			}
+
+			#chartContainer3
+			{
+
+                height: 300px;
+				width: 100%;
+			}
+
+			 #chartContainer1
+			 {
+
+                height: 330px;
+				width: 100%;
+			 }
+
+
+
+
+	</style>
+	
+	
+<script>
+$( document ).ready(function(){$.ajax({
+		            url: 'http://localhost:3000/sensor0.1',
+		            type: 'GET',
+		            success : function(result) {
+	 //--------------------------------------------column--------------------------------
+	 var arr1,arr2;
+		var Current=[];
+		var Power=[];
+
+			arr1=result["dataset"][0]["data"];
+			arr2=result["dataset"][1]["data"];
+			
+		
+		var total_current=0;                     
+		for(i=0;i<arr1.length;i++)
+		
+		{
+
+			total_current+=Number(arr1[i].value);
+		
+		}
+		
+
+		Current.push({ 
+	        "label" : "Current",
+	        "y"  : Number(total_current)
+	    });
+
+		var total_power=0;
+		var total_power1=0;
+		for(i=0;i<arr2.length;i++)
+		
+		{
+
+			total_power+=Number(arr2[i].value);
+			total_power1=total_power/1000;
+		
+		}
+		
+		Power.push({ 
+		        "label" : "Power",
+		        "y"  : Number(total_power1)
+	    });
+		
+	 var chart = new CanvasJS.Chart("chartContainer2", 
+
+	 {
+		 animationEnabled: true,
+		 backgroundColor: "transparent",
+	     theme: "theme2",
+	     exportEnabled: true,
+
+	      title:
+		    {
+
+               text:"",
+                fontSize: 15
+
+		    },
+		    
+
+		axisY: 
+
+		{
+			title: "",
+			interval: 10
+		},
+
+        dataPointWidth:80,
+        
+		data: 
+
+		[
+		  {
+				type: "column",	
+				yValueFormatString: "",
+				indexLabel: "{y} kWh",
+				indexLabelPlacement: "outside",  
+                indexLabelOrientation: "horizontal",
+				dataPoints: Power
+		  },
+
+		  {
+				type: "column",	
+				yValueFormatString: "",
+				indexLabel: "{y} Amps",
+				indexLabelPlacement: "outside",  
+                indexLabelOrientation: "horizontal",
+				dataPoints: Current
+		  }
+
+		]
+	});
+
+	function updateChart() {
+		var EnergyColor, deltaY, yVal;
+		var EnergyColor1, deltaY1, yVal1;
+		var dps = chart.options.data[0].dataPoints;
+		var dps1 = chart.options.data[1].dataPoints;
+		var xValuee = Number(document.getElementById("xValuee").value);
+        var yValuee = Number(document.getElementById("yValuee").value);
+        var pdiff=xValuee-0.3;
+        var adiff=yValuee-0.3;
+		for (var i = 0; i < dps.length; i++) 
+
+		{
+			deltaY = Math.round(0);
+			yVal = deltaY + dps[i].y > 0 ? dps[i].y + deltaY : 0;
+			EnergyColor = yVal >xValuee ? "#FF2500" : yVal >=pdiff ? "#FF6000" : yVal <xValuee? " #1abc9c": null;
+			dps[i] = {label: "Power" , y: yVal, color: EnergyColor};
+
+		}
+        
+		for (var i = 0; i < dps1.length; i++) 
+
+		{
+			deltaY1 = Math.round(0);
+			yVal1 = deltaY1 + dps1[i].y > 0 ? dps1[i].y + deltaY1 : 0;
+			EnergyColor1 = yVal1 >yValuee ? "#FF2500" : yVal1 >=adiff? "#FF6000" : yVal1 <yValuee ?  "#5c6bc0  " : null;
+			dps1[i] = {label: "Power              Current" , y: yVal1, color: EnergyColor1};
+		}
+
+		chart.options.data[0].dataPoints = dps; 
+		chart.options.data[1].dataPoints = dps1;
+		chart.render();
+	};
+	updateChart();
+
+	setInterval(function() {updateChart()}, 500);		
+  }
+
+   });
+})
+</script>
+                                                <!--Line Chart-->
+<script type="text/javascript">
+	$( document ).ready(function(){$.ajax({
+		            url: 'http://localhost:3000/sensor0',
+		            type: 'GET',
+		            success : function(data) {
+		                    Highcharts.chart('chartContainer3', {
+		
+		    chart: 
+
+		    {
+		        type: 'line'
+		    },
+
+		    title: 
+
+		    {
+		        text: ''
+		    },
+
+		    xAxis: 
+
+		    {
+		        categories: data[0].dates
+		    },
+		
+		    yAxis: 
+		    {
+		        title: 
+
+		        {
+		            text: 'Power (Watts)'
+		        }
+		    },
+
+		    legend: 
+
+		    {
+		        layout: 'vertical',
+		        align: 'right',
+		        verticalAlign: 'middle'
+		    },
+		
+		     tooltip: 
+		     {
+		        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+		        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+		            '<td style="padding:0"><b>{point.y:.1f} Watt</b></td></tr>',
+		        footerFormat: '</table>',
+		        shared: true,
+		        useHTML: true
+             },
+		
+		plotOptions:
+		 {
+		        line: 
+
+		        {
+		            pointPadding:0.2,
+		            borderWidth:0
+		        }
+		 },
+		       
+		
+		    series: 
+
+		    [{
+		        name: 'Room :'+data[0]._id+ " Power",
+		        data: data[0].energyarr
+		    }, 
+
+		    {
+		        name: 'Room: '+data[1]._id+ " Power",
+		        data: data[1].energyarr
+
+		    }],
+		});
+		}
+		});
+})
+
+</script>
+
+<script>
+$(function ()  
+
+{
+
+	$.ajax({url: "http://localhost:3000/sensor0.1", success: function(result)
+
+	{
+	 //--------------------------------------------Bill Chart--------------------------------
+	 var arr2;
+
+		var Power=[];
+
+			arr2=result["dataset"][1]["data"];
+			
+		var total_power=0;
+		var total_power1=0;
+		for(i=0;i<arr2.length;i++)
+		
+		{
+
+			total_power+=Number(arr2[i].value);
+			total_power1=total_power/1000;
+		
+		}
+		
+		Power.push({ 
+		        "label" : "Power",
+		        "y"  : Number(total_power1)
+	    });
+		
+	 var chart = new CanvasJS.Chart("chartContainer1", 
+
+	 {
+		 animationEnabled: true,
+		 backgroundColor: "transparent",
+	     theme: "theme2",
+	     exportEnabled: true,
+
+	      title:
+		    {
+
+               text:"",
+                fontSize: 15
+
+		    },
+		    
+
+		axisY: 
+
+		{
+			title: "Value(Rs)",
+			interval:5
+		},
+
+        dataPointWidth:80,
+        
+		data: 
+
+		[
+		  {
+				type: "column",	
+				yValueFormatString: "",
+				indexLabel: "{y} ₨/kWh",
+				indexLabelPlacement: "outside",  
+                indexLabelOrientation: "horizontal",
+				dataPoints: Power
+		  }
+
+		]
+	});
+
+	function updateChart() {
+		var EnergyColor, deltaY, yVal, lfif, ehund, e2hund, e3hund, e7hund, inf;
+		var dps = chart.options.data[0].dataPoints;
+		for (var i = 0; i < dps.length; i++) 
+
+		{
+			deltaY = Math.round(0);
+			yVal = deltaY + dps[i].y > 0 ? dps[i].y + deltaY : 0;
+			lfif=yVal*2;
+			lfiff=Math.round(lfif);
+			ehund=yVal*5.79;
+		    ehundd=Math.round(ehund);
+			e2hund=yVal*8.11;
+			e2hundd=Math.round(e2hund);
+			e3hund=yVal*10.20;
+			e3hundd=Math.round(e3hund);
+			e7hund=yVal*13;
+			e7hundd=Math.round(e7hund);
+			inf=yVal*15;
+			inff=Math.round(inf);
+
+			if(yVal>0.1&&yVal<=50 && lfiff)
+			{
+				EnergyColor="#1abc9c";
+				dps[i] = {label: "Rs" , y: lfiff, color: EnergyColor};
+			}
+            
+            if(yVal>50 && yVal<=100 && ehundd)
+			{
+				EnergyColor="#5499c7";
+				dps[i] = {label: "Rs" , y: ehundd, color: EnergyColor};
+			}
+
+			if(yVal>100 && yVal<=200 && e2hundd)
+			{
+				EnergyColor="#af7ac5";
+				dps[i] = {label: "Rs" , y: e2hundd, color: EnergyColor};
+			}
+
+			if(yVal>200 && yVal<=300 && e3hundd)
+			{
+				EnergyColor="#f4d03f";
+				dps[i] = {label: "Rs" , y: e3hundd, color: EnergyColor};
+			}
+
+           if(yVal>300 && yVal<=700&& e7hundd)
+			{
+				EnergyColor="#eb984e";
+				dps[i] = {label: "Rs" , y: e7hundd, color: EnergyColor};
+			}
+
+            if(yVal>700 && inff)
+			{
+				EnergyColor="#cd6155";
+				dps[i] = {label: "Rs" , y: inff, color: EnergyColor};
+			}
+
+		}
+
+		chart.options.data[0].dataPoints = dps; 
+		chart.render();
+	};
+	updateChart();	
+  }
+
+   });
+});
+</script>
+
+
+</head>
+
+<body>
+
+	<br><br><br>
+<div class="container">
+	<h3 id="header">
+		<strong>Energy Consumption of Home</strong>
+		<!--<small class="text-muted">30 March 2018 -  3 April 2018</small>-->
+	</h3>
+	<div class="row m-b-1">
+			<div class="col-xs-12">
+				<div class="card shadow">
+					<h4 class="card-header">Energy Consumption of Home</h4>
+					<div class="card-block">
+					     <div id="chartContainer3"></div>
+					</div>
+				</div>
+			</div>
+	 </div>
+	 <div class="row m-b-1">
+			<div class="col-lg-6">
+				<div class="card shadow">
+					<h4 class="card-header">Electricity Consumption Charges (Rs/kWh)</h4>
+					   <div class="card-block">
+							<div id="chartContainer1"></div>
+							<cenetr>
+                               <ul id="menu">
+								  <li id="lesfif">0-50</li>
+								  <li id="ehund">51-100</li>
+								  <li id="e2hund">101-200</li>
+								  <li id="e3hund">201-300</li>
+								  <li id="e7hund">301-700</li>
+								  <li id="g7hund">>700</li>
+							    </ul>
+							</cenetr>
+					   </div>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				  <div class="card shadow">
+					  <h4 class="card-header">Overall Energy Consumption of Home</h4>
+				    <div class="card-block">
+						<div id="chartContainer2"></div>				
+					    <center>
+			         Power Limit Value: <input id="xValuee" type="number" step="any" class="xvalue" onkeyup='saveValue(this);'> 
+				   Current Limit Value: <input id="yValuee" type="number" step="any" class="yvalue" onkeyup='saveValue(this);'>
+					    </center>
+				    </div>
+				  </div>
+			</div>
+	  </div>
+</div>
+
+	
+<script type="text/javascript">
+
+        document.getElementById("xValuee").value = getSavedValue("xValuee");   
+        document.getElementById("yValuee").value = getSavedValue("yValuee");  
+        
+        function saveValue(e){
+            var id = e.id;  
+            var val = e.value; 
+            localStorage.setItem(id, val); 
+        }
+
+      
+        function getSavedValue  (v){
+            if (localStorage.getItem(v) === null) 
+
+            {
+                return "";
+            }
+            return localStorage.getItem(v);
+        }
+
+</script>
+
+</body>
+
+</html>

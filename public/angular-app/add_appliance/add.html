@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html ng-app="HEMS">
+<title>Home Energy Management System</title>
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+
+</head>
+
+<body>  
+
+  <br><br><br>
+
+  <center>
+
+    <h2>Add Appliance</h2>
+
+  </center>
+
+  <br>
+
+  <div ng-if="x.message" class="alert alert-success" role="alert">
+
+    <p> {{x.message}} </p>
+
+  </div>
+
+  <div ng-if="x.error" class="alert alert-danger" role="alert">
+
+    <p> {{x.error}} </p>
+  
+  </div>
+
+  <form ng-hide="x.message" name="add" ng-submit="x.add()">
+    <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
+       <div class="w3-center">
+         <center>
+
+          <input class="w3-center" type="text" placeholder="Enter Appliance Name" ng-model="x.ApplianceName" 
+          autocapitalize="none">
+
+         </center>
+
+      </div>
+
+    </div>
+
+     <br>
+
+    <center><button type="submit" class="btn btn-success">Add Appliance</button></center>
+
+  </form>
+
+</body>
+
+</html>

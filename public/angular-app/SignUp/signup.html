@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HEMS</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+  
+<body>
+  <br><br><br>
+<div ng-if="x.message" class="alert alert-success" role="alert">
+  <p>{{ x.message }}</p>
+</div>
+<div ng-if="x.error" class="alert alert-danger" role="alert">
+  {{ x.error }}
+</div>
+
+<div class="row">
+      
+        <div class="main " >
+          <div class="container">
+            <div ng-hide="x.message" class="jum jumbotron  " style="background: white;">
+            <br />
+              <div class="panel panel-primary ">
+              <div class="panel-heading">SignUp</div>
+              <form ng-hide="x.message" class="form-horizontal" name="register" ng-submit="x.register()">
+              
+              <div class="panel-body">            
+              <br />    
+              
+              <div class="form-group">  
+              <label  for="username" class="col-md-2 control-label">Username:</label>
+              <div class="col-md-10">
+                <input type="username" class="form-control" id="username" placeholder="Username" ng-model="x.username" autocapitalize="none">
+              </div>
+              </div>
+              <div class="form-group">  
+              <label  for="email" class="col-md-2 control-label">Email:</label>
+              <div class="col-md-10">
+                <input type="email" class="form-control" id="email" placeholder="Email" ng-model="x.email" autocapitalize="none">
+              </div>
+              </div>
+
+              <div class="form-group">  
+              <label  for="password" class="col-md-2 control-label">Password:</label>
+              <div class="col-md-10">
+                <input type="password" class="form-control" id="password" placeholder="Password" ng-model="x.password" autocapitalize="none">
+              </div>
+              </div>
+
+              <div class="form-group">  
+              <label  for="password-repeat" class="col-md-2 control-label">RepeatPassword:</label>
+              <div class="col-md-10">
+                <input type="password" class="form-control" id="password-repeat" placeholder="RepeatPassword" ng-model="x.passwordRepeat" autocapitalize="none">
+              </div>
+              </div>
+              
+              </div>
+              <div class="panel-footer">
+              <button type="submit" class="btn btn-success">Register</button>             
+              </div>
+              </form>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>
+</body>
+</html>
