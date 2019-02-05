@@ -1,1 +1,1 @@
-This repo conatins Home Energy Management System
+#Home Energy Monitoring System
