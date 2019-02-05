@@ -3,3 +3,4 @@
 =======
 #Home Energy Monitoring System
 >>>>>>> e2c06b7d562b45b7a24a4e5b6bf8747b7a544841
+Home Energy Management System
