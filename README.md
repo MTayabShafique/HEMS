@@ -1,1 +1,1 @@
-Home Energy Monitoring System
+Home Energy Management System
