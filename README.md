@@ -32,6 +32,11 @@ It provides real time energy consumption details of connected appliances.
     <img src="https://github.com/MTayabShafique/HEMS/blob/master/public/image/HomeConsumption.png" />
 </p>
 
+# Setup
+<p>
+    <img src="https://github.com/MTayabShafique/HEMS/blob/master/public/image/setup.jpg" />
+</p>
+
 # Requiremnts
 For this project, you need
  ## Hardware
