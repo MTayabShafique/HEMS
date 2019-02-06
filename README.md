@@ -37,7 +37,7 @@ It provides real time energy consumption details of connected appliances.
     <img src="https://github.com/MTayabShafique/HEMS/blob/master/public/image/setup.jpg" />
 </p>
 
-# Requiremnts
+# Requirements
 For this project, you need
  ## Hardware
   * Arduino Uno
