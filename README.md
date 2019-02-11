@@ -32,6 +32,11 @@ It provides real time energy consumption details of connected appliances.
     <img src="https://github.com/MTayabShafique/HEMS/blob/master/public/image/HomeConsumption.png" />
 </p>
 
+# Sensor's Readings
+<p>
+    <img src="https://github.com/MTayabShafique/HEMS/blob/master/public/image/Readings.PNG" />
+</p>
+
 # Setup
 <p>
     <img src="https://github.com/MTayabShafique/HEMS/blob/master/public/image/setup.jpg" />
