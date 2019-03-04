@@ -64,6 +64,7 @@ For this project, you need
   * Relays
   ## Web Development
   * MEAN Stack
+  * JavaScript
   
 # Who do I talk to?
 I would be happy to talk to you about this project and if you are interested then we can further enhance this project to.
