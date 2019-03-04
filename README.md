@@ -38,6 +38,17 @@ It provides real time energy consumption details of connected appliances.
 </p>
 
 # Setup
+
+* Master Node
+<p>
+    <img src="https://github.com/MTayabShafique/HEMS/blob/master/public/image/Master Node.jpg" height="200" />
+</p>
+
+* Slave Node
+<p>
+    <img src="https://github.com/MTayabShafique/HEMS/blob/master/public/image/Slave Node.jpg" height="200" />
+</p>
+
 <p>
     <img src="https://github.com/MTayabShafique/HEMS/blob/master/public/image/setup.jpg" />
 </p>
