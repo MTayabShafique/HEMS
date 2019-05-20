@@ -1,6 +1,6 @@
 # HEMS
-Home Energy Management System is based on MEAN Stack and Zigbee based Wireless Communication Protocol. 
-It provides real time energy consumption details of connected appliances.
+Home Energy Management System (A Single Page Application) is based on MEAN Stack and Zigbee based Wireless Communication Protocol. 
+It provides real time energy consumption details of connected home appliances.
 # Results
 * Login/Signup page of the Application
 <p>
